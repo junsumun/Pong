@@ -8,11 +8,19 @@ public class GameLauncher extends Application{
 	private final int HEIGHT = 600;
 	private Scene mainscene;
 	private Pane canvas;
+	
 	public void start(Stage mainstage){
 		//Creating basic display structure
 		mainstage.setTitle("Pong");
 		canvas = new Pane();
 		mainscene = new Scene(canvas, WIDTH, HEIGHT);
+		mainstage.setScene(mainscene);
+		mainstage.show();
 		
 	}
+	
+	public static void main(String [] args){
+		Application.launch(args);
+	}
+	
 }
