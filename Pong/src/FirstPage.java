@@ -12,7 +12,7 @@ import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 public class FirstPage{
-	private Pane canvas;
+	private static Pane canvas;
 	private FirstPageButton play, quit;
 	
 	//Main BGM
@@ -37,6 +37,9 @@ public class FirstPage{
 	public FirstPage(){
 		//Basic Structure of the first page
 		canvas = new Pane();
+		
+		//Creating Second Page object
+		new SecondPage();
 		
 		//Creating Play and Quit Buttons
 		play = new FirstPageButton(playbefore, playafter);
@@ -66,9 +69,10 @@ public class FirstPage{
 	}
 	
 	//getPane method retruns FirstPage class pane to the game launcher
-	public Pane getPane(){
+	public static Pane getPane(){
 		return canvas;
 	}
+	
 	
 	//Play Button eventHandler
 	public void playPressed(MouseEvent event){
@@ -77,6 +81,7 @@ public class FirstPage{
 	}
 	public void playReleased(MouseEvent event){
 		play.setVisible(1);
+		GameLauncher.setRoot(SecondPage.getPane());
 	}
 	
 	//Quit Button eventHandler

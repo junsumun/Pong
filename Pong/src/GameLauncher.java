@@ -5,13 +5,12 @@ import javafx.stage.Stage;
 public class GameLauncher extends Application{
 	private final int WIDTH = 800;
 	private final int HEIGHT = 600;
-	private FirstPage firstpage;
-	private Scene mainscene;
+	private static Scene mainscene;
 	
 	public void start(Stage mainstage){
 		//Creating firstpage
-		firstpage = new FirstPage();
-		mainscene = new Scene(firstpage.getPane(), WIDTH,HEIGHT);
+		new FirstPage();
+		mainscene = new Scene(FirstPage.getPane(), WIDTH,HEIGHT);
 		//Creating basic display structure
 		mainstage.setTitle("Pong");
 		mainstage.setScene(mainscene);
@@ -24,7 +23,7 @@ public class GameLauncher extends Application{
 	}
 	
 	//setRoot is used to shitf the pages in the game.
-	public void setRoot(Pane root){
+	public static void setRoot(Pane root){
 		mainscene.setRoot(root);
 	}
 	
