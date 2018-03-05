@@ -61,7 +61,7 @@ public class Player {
 		player.setLayoutY(y);
 	}
 	
-	//setPlayerImage adds a correct image according to the sied of the player
+	//setPlayerImage adds a correct image according to the side of the player
 	public void setPlayerImage(int num){
 		if(num==1)
 			basicimage = new Image(new File("src/images/LeftPaddle.png").toURI().toString());
