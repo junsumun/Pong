@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
@@ -18,15 +19,16 @@ import javafx.util.Duration;
 public class ClassicGame {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 600;
-	private static Scene scene;
-	private Pane canvas;
-	private Player player1, player2;
+	private Scene scene;
+	protected Pane canvas;
+	protected Player player1, player2;
 	private Ball ball;
-	private double ballx, bally; //Direction of the ball
+	protected double ballx, bally; //Direction of the ball
 	private ScoreBoard scoreboard1, scoreboard2;
 	private Label pause, start, pressb, pressrm, winnerleft, winnerright;
-	private boolean running = false, paused = false, gameover, keyw, keys, keyp, keyl;
-	private Timeline loop;
+	private boolean running = false, paused = false, keyw, keys, keyp, keyl;
+	protected boolean gameover;
+	protected Timeline loop;
 	private double leftlightcurrent, rightlightcurrent; //Stores the current time of the light when it is turned on
 	
 	//Sound Assets
@@ -34,7 +36,7 @@ public class ClassicGame {
 	private AudioClip goal = new AudioClip(new File("src/sounds/Accept.wav").toURI().toString());
 	private AudioClip winner = new AudioClip(new File("src/sounds/Winner.wav").toURI().toString());
 	private Media classicsong = new Media(new File("src/sounds/Uaua.mp3").toURI().toString());
-	private MediaPlayer classicbgm = new MediaPlayer(classicsong);
+	protected MediaPlayer classicbgm = new MediaPlayer(classicsong);
 	
 	public ClassicGame() {
 		//Basic Structure of the Classic game
@@ -46,17 +48,15 @@ public class ClassicGame {
 		setUpScoreBoard();
 		setUpDisplay();
 		
-		
 		loop = gameLoop();
 		loop.setCycleCount(Timeline.INDEFINITE);
-		
 		
 		scene.setOnKeyPressed(this::keyPressed);
 		scene.setOnKeyReleased(this::keyReleased);
 	}
 	
 	//KeyEvent Handlers
-	public void keyPressed(KeyEvent event) {
+	public int keyPressed(KeyEvent event) {
 		switch(event.getCode()) {
 		case W:
 			keyw = true;
@@ -106,6 +106,7 @@ public class ClassicGame {
 				loop.play();
 				gameover = false;
 				running = true;
+				return 0;
 			}
 			break;
 		case M:
@@ -113,10 +114,11 @@ public class ClassicGame {
 				GameLauncher.setScene(GameLauncher.getMainScene());
 				reSetUpGame();
 				FirstPage.playMainBGM();
+				return 0;
 			}
 			break;
-			
 		}
+		return 1;
 	}
 	public void keyReleased(KeyEvent event) {
 		switch(event.getCode()) {
@@ -134,8 +136,8 @@ public class ClassicGame {
 			break;
 		}
 	}
-	
-	public static Scene getScene() {
+
+	public Scene getScene() {
 		return scene;
 	}
 
@@ -274,7 +276,7 @@ public class ClassicGame {
 	}
 	//collisionCheck method checks collisions between ball, 4 walls, and 2 paddles.
 	//and do appropriate jobs.
-	public void collisionCheck() {	
+	public int collisionCheck() {	
 		Bounds player1b = player1.getPlayer().getBoundsInParent();
 		Bounds player2b = player2.getPlayer().getBoundsInParent();
 		Bounds ballb = ball.getBall().getBoundsInParent();
@@ -291,6 +293,7 @@ public class ClassicGame {
 				bouncesound.play();
 				ballx = -ballx;
 			}
+			return 0;
 		}
 		else if(ballb.intersects(player2b)) {
 			if(ball.getLayoutX()+8>=player2.getLayoutX()) {
@@ -305,6 +308,7 @@ public class ClassicGame {
 				bouncesound.play();
 				ballx = -ballx;
 			}
+			return 0;
 		}
 		else if(ball.getLayoutX()-ball.getRadius()<=0) {
 			goal.play();
@@ -312,6 +316,7 @@ public class ClassicGame {
 			ballx = -ballx;
 			leftlightcurrent = player1.lightOn(1);
 			scoreboard2.increment();
+			return 0;
 		}
 		else if(ball.getLayoutX()+ball.getRadius()>=WIDTH) {
 			goal.play();
@@ -319,6 +324,7 @@ public class ClassicGame {
 			ballx = -ballx;
 			rightlightcurrent = player2.lightOn(2);
 			scoreboard1.increment();
+			return 0;
 		}
 		else if(ball.getLayoutY()-ball.getRadius()<=0) {
 			bouncesound.stop();
@@ -330,6 +336,7 @@ public class ClassicGame {
 			bouncesound.play();
 			bally = -bally;
 		}
+		return 1;
 	}
 	
 	//moveBall method changes the location of the ball object every frame

@@ -23,7 +23,7 @@ public class ScoreBoard {
 	public void relocate(double x, double y){
 		scoreboard.relocate(x, y);
 	}
-	//increment method increments a player's scoreboard when he scores
+	//increment method increments a player's score board when he scores
 	public void increment(){
 		score++;
 		scoreboard.setText(Integer.toString(score));

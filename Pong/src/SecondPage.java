@@ -9,7 +9,8 @@ import javafx.scene.layout.Pane;
 public class SecondPage {
 	private static Pane canvas;
 	private Button back, classic, arcade;
-	
+	private ArcadeGame arcadegame;
+	private ClassicGame classicgame;
 	//SECOND PAGE BACKGROUND IMAGE, BACK, ARCADE, CLASSIC
 	private final Image backgroundimage = new Image(new File("src/images/Background.png").toURI().toString());
 	private final ImageView background = new ImageView(backgroundimage);
@@ -41,7 +42,10 @@ public class SecondPage {
 		canvas.getChildren().addAll(background,classiclight,backlight,backbefore,arcadelight,arcadebefore,classicbefore,classic,back,arcade);
 		
 		//Creating Classic game object
-		new ClassicGame();
+		classicgame = new ClassicGame();
+		
+		//Creating Arcade game object
+		arcadegame = new ArcadeGame();
 		
 		//BACK BUTTON EVENT HANDLER
 		back.setOnMousePressed(this::backPressed);
@@ -122,7 +126,7 @@ public class SecondPage {
 	}
 	public void classicReleased(MouseEvent event){
 		classiclight.setVisible(false);
-		GameLauncher.setScene(ClassicGame.getScene());
+		GameLauncher.setScene(classicgame.getScene());
 	}
 	public void arcadePressed(MouseEvent event){
 		FirstPageButton.buttonSoundOn();
@@ -130,6 +134,7 @@ public class SecondPage {
 	}
 	public void arcadeReleased(MouseEvent event){
 		arcadelight.setVisible(false);
+		GameLauncher.setScene(arcadegame.getScene());
 	}
 }
 
