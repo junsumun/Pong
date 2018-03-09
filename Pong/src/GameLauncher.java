@@ -9,6 +9,9 @@ public class GameLauncher extends Application{
 	private static Scene mainscene;
 	private static Stage mainstage;
 	
+	public static void main(String [] args){
+		Application.launch(args);
+	}
 	public void start(Stage stage){
 		mainstage = stage;
 		//Creating a FirstPage object
@@ -32,9 +35,4 @@ public class GameLauncher extends Application{
 	public static void setScene(Scene scene){
 		mainstage.setScene(scene);
 	}
-	
-	public static void main(String [] args){
-		Application.launch(args);
-	}
-	
 }
