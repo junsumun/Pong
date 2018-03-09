@@ -40,6 +40,9 @@ public class SecondPage {
 		
 		canvas.getChildren().addAll(background,classiclight,backlight,backbefore,arcadelight,arcadebefore,classicbefore,classic,back,arcade);
 		
+		//Creating Classic game object
+		new ClassicGame();
+		
 		//BACK BUTTON EVENT HANDLER
 		back.setOnMousePressed(this::backPressed);
 		back.setOnMouseReleased(this::backReleased);
@@ -51,8 +54,9 @@ public class SecondPage {
 		//ARCADE BUTTON EVENT HANDLER
 		arcade.setOnMousePressed(this::arcadePressed);
 		arcade.setOnMouseReleased(this::arcadeReleased);
+		
 	}
-	
+
 	public static Pane getPane(){
 		return canvas;
 	}
@@ -118,6 +122,7 @@ public class SecondPage {
 	}
 	public void classicReleased(MouseEvent event){
 		classiclight.setVisible(false);
+		GameLauncher.setScene(ClassicGame.getScene());
 	}
 	public void arcadePressed(MouseEvent event){
 		FirstPageButton.buttonSoundOn();

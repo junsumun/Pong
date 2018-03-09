@@ -16,7 +16,7 @@ public class FirstPage{
 	private FirstPageButton play, quit;
 	
 	//Main BGM
-	private final AudioClip mainbgm = new AudioClip(new File("src/sounds/Caketown.mp3").toURI().toString());
+	private static final AudioClip mainbgm = new AudioClip(new File("src/sounds/Caketown.mp3").toURI().toString());
 	
 	//FIRST PAGE BACKGROUND IMAGE
 	private final Image backgroundimage = new Image(new File("src/images/PONG.png").toURI().toString());
@@ -51,7 +51,7 @@ public class FirstPage{
 		canvas.getChildren().addAll(background, play.getButton(), quit.getButton());
 		
 		//Play main BGM
-		playBGM();
+		playMainBGM();
 	
 		//PLAY EVENT HANDLER
 		play.getButton().setOnMousePressed(this::playPressed);
@@ -62,13 +62,17 @@ public class FirstPage{
 		quit.getButton().setOnMouseReleased(this::quitReleased);
 	}
 	
-	//playBGM method plays the background music
-	public void playBGM(){
+	//playMainBGM method plays the background music
+	public static void playMainBGM(){
 		mainbgm.setCycleCount(Timeline.INDEFINITE);
 		mainbgm.play();
 	}
+	//stopMainBGM method stops the background music
+	public static void stopMainBGM(){
+		mainbgm.stop();
+	}
 	
-	//getPane method retruns FirstPage class pane to the game launcher
+	//getPane method returns FirstPage class pane to the game launcher
 	public static Pane getPane(){
 		return canvas;
 	}
