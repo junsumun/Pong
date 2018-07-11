@@ -20,7 +20,3 @@ To test out this game on your device, please follow the instruction below carefu
 
 **To Pause:**     Press "SPACE BAR"
 
-## Developer's Words
-Heopefully, this small project inspires other people, and if you have any questions about the code or if you find any bugs in the program. Feel free to contact me via my email jn218201@dal.ca.
-
-Have a great day!
